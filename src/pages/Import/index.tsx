@@ -23,27 +23,29 @@ const Import: React.FC = () => {
   const history = useHistory();
 
   async function handleUpload(): Promise<void> {
-    // const data = new FormData();
+    const data = new FormData();
+    const files = uploadedFiles.map(fileProps => fileProps.file);
 
-    // TODO
+    data.append('file', new Blob([...files], { type: 'csv' }));
 
     try {
-      // await api.post('/transactions/import', data);
+      await api.post('/transactions/import', data);
+      console.log('jaca');
     } catch (err) {
-      // console.log(err.response.error);
+      console.log(err.response.error);
     }
   }
 
   function submitFile(files: File[]): void {
-    console.log(files);
+    // console.log(files);
     const filesData: FileProps[] = files.map(file => ({
       file,
       name: file.name,
       readableSize: filesize(file.size),
     }));
 
-    console.log(filesData);
-    // setUploadedFiles([...filesData]);
+    // console.log(filesData);
+    setUploadedFiles([...filesData]);
   }
 
   return (
