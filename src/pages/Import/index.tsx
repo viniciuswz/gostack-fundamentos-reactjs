@@ -30,7 +30,6 @@ const Import: React.FC = () => {
 
     try {
       await api.post('/transactions/import', data);
-      console.log('jaca');
     } catch (err) {
       console.log(err.response.error);
     }
